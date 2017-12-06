@@ -52,8 +52,7 @@ public class Parse implements ParseJson {
                     jv.setToken(JsonToken.COLON);
                     jv.setValue(":");
                 case '\"' :
-                    jv.setToken(JsonToken.QUOTE);
-                    jv.setValue("\"");
+                    jv = parseString(jsons);
                     break;
                 case '(' :
                     jv.setToken(JsonToken.LP);
@@ -88,16 +87,11 @@ public class Parse implements ParseJson {
                     jv.setValue(";");
                     break;
                 default :
-                    jv = null;
+                    jv.setToken(JsonToken.BADTOKEN);
+                    jv.setValue(next + "");
             }
-            if(jv != null) {
-                index++;
-                return jv;
-            } else {
-                return parseString(jsons);
-            }
-
-
+            index++;
+            return jv;
         }
         return null;
 
@@ -198,11 +192,14 @@ public class Parse implements ParseJson {
     }
 
     private JsonValue parseString(char[] jsons) {
+        assert(isString(jsons[index]));
         String value = jsons[index++] + "";
         while(index < jsons.length) {
             if (jsons[index] != '"') {
                 value += jsons[index++];
             } else {
+                index++;
+                value += "\"";
                 break;
             }
         }
@@ -210,5 +207,9 @@ public class Parse implements ParseJson {
         jv.setToken(JsonToken.STRING);
         jv.setValue(value);
         return jv;
+    }
+
+    private boolean isString(char x) {
+        return '"' == x;
     }
 }
