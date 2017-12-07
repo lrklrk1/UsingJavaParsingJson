@@ -1,5 +1,7 @@
 public interface ParseJson {
 
-    JsonValue parseJson(String json) throws Exception;
+    public void setJsonschars(String jsonString);
+
+    JsonValue parseJson() throws Exception;
 
 }

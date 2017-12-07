@@ -28,4 +28,24 @@ public class JsonValue {
         return this.number;
     }
 
+    @Override
+    public String toString() {
+        JsonToken token = this.getToken();
+        StringBuilder result = new StringBuilder();
+        if(token.equals(JsonToken.STRING)) {
+            result.append(this.getValue());
+        } else if(token.equals(JsonToken.NUMBER)) {
+            result.append(this.getNumber());
+        } else if (token.equals(JsonToken.FALSE)) {
+            result.append("false");
+        } else if (token.equals(JsonToken.TRUE)) {
+            result.append("true");
+        } else if (token.equals(JsonToken.NULL)) {
+            result.append("null");
+        } else {
+            result.append(" wrongwrongwrong ! ");
+        }
+        return result.toString();
+    }
+
 }

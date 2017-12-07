@@ -1,8 +1,5 @@
 public enum JsonToken {
 
-//    （）
-    LP,
-    RP,
 //    {}
     LB,
     RB,
@@ -19,12 +16,7 @@ public enum JsonToken {
     TRUE,
     FALSE,
     NULL,
-//    QUOTE
-    LQ,
-    RQ,
 //    :
-    COLON,
-//    "
-    QUOTE;
+    COLON;
 
 }
